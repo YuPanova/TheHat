@@ -1,0 +1,50 @@
+<div class="footer" *ngIf="showResults && results">
+  <div class="column">
+    <div class="row"> Team <span class="first-team">{{results[0]?.name}}</span>: </div>
+    <div class="row"> <span class="bold">{{results[0]?.score}}</span> points</div>
+  </div>
+  <div class="column">
+    <div class="row"> Team <span class="second-team">{{results[1]?.name}}</span>:</div>
+    <div class="row"> <span class="bold">{{results[1]?.score}}</span> points </div>
+  </div>
+</div>
+
+<div *ngIf="showSanitizes">
+  <table>
+    <thead>
+    <tr>
+      <th></th>
+      <th>Interpolation</th>
+      <th>innerHTML</th>
+      <th>innerText</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>txt</td>
+      <td>{{txt}}</td>
+      <td><span [innerHTML]="txt"></span></td>
+      <td><span [innerText]="txt"></span></td>
+    </tr>
+    <tr>
+      <td>DOMPurify.sanitize(txt)</td>
+      <td>{{domPurified}}</td>
+      <td><span [innerHTML]="domPurified"></span></td>
+      <td><span [innerText]="domPurified"></span></td>
+    </tr>
+    <tr>
+      <td>sanitizer.bypassSecurityTrustHtml(txt);</td>
+      <td>{{sanitized}}</td>
+      <td><span [innerHTML]="sanitized"></span></td>
+      <td><span [innerText]="sanitized"></span></td>
+    </tr>
+    <tr>
+      <td>{{xssText}}</td>
+      <td>{{xssSanitized}}</td>
+      <td><span [innerHTML]="xssSanitized"></span></td>
+      <td><span [innerText]="xssSanitized"></span></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

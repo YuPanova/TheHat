@@ -1,0 +1,77 @@
+@import '../../../shared/styles/variables';
+
+.score-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.bold {
+  font-weight: bolder;
+  text-transform: capitalize;
+  color: $first-team-color;
+}
+
+.first-team-bg {
+  background-color: $first-team-bg-color;
+}
+
+.second-team-bg {
+  background-color: $second-team-bg-color;
+}
+
+.word {
+  color: black;
+  font-weight: 500;
+  font-size: 80px;
+  line-height: 80px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.timer {
+  font-size: 70px;
+  line-height: 70px;
+  font-weight: 400;
+  color: black;
+  margin: 10px auto;
+}
+
+.images{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #ffff00;
+  }
+  100% {
+    background-color: #ff0000;
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@media only screen and (max-width: 480px) {
+  .score-container {
+    flex-direction: column;
+  }
+
+  .score {
+    border-top: solid 1px $second-team-color;
+    width: 100%;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,22 @@
+@import 'src/app/shared/styles/variables';
+
+label{
+  color: $first-team-color;
+}
+.example-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: 80%;
+  margin: auto;
+}
+
+mat-form-field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}

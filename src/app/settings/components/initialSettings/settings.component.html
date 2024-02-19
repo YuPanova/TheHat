@@ -1,0 +1,66 @@
+<div class="settings-page" *ngIf="isLoaded">
+  <form [formGroup]="form" class="example-form" (ngSubmit)="onSubmit()">
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Count of players</mat-label>
+      <input matInput type="number" placeholder="8" min="4" formControlName="playersCount">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Count of words per player</mat-label>
+      <input matInput type="number" placeholder="8" min="2" formControlName="playerWordsCount">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Name of the first group</mat-label>
+      <input matInput formControlName="firstTeamName">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Player's names of the first group</mat-label>
+      <textarea matInput formControlName="firstTeamPlayers">
+      </textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Name of the second group</mat-label>
+      <input matInput formControlName="secondTeamName">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Player's names of the second group</mat-label>
+      <textarea matInput formControlName="secondTeamPlayers">
+      </textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Word's language</mat-label>
+      <mat-select [(value)]="selectedLanguage">
+        <mat-option *ngFor="let item of languageCodes" [value]="item">{{item.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Round time</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="10"
+        min="10"
+        max="60"
+        step="10"
+        formControlName="timeOfRound"
+      >
+    </mat-form-field>
+
+    <div class="button-container">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid"
+        type="submit"
+      >Save settings</button>
+    </div>
+  </form>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,41 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+
+    <div class="image">
+      <a [routerLink]="['/']">
+        <img src="assets/images/the-hat.png" alt="logo">
+      </a>
+    </div>
+
+    <div id="small-menu">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+        class="menu"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="goTo('settings')" >
+          Settings
+        </button>
+        <button mat-menu-item (click)="goTo('rules')">
+          Rules
+        </button>
+      </mat-menu>
+    </div>
+
+    <ul id="wide-menu" class="nav navbar-nav pull-xs-right">
+
+      <li class="nav-item">
+        <a [routerLink]="['/settings']" class="nav-link"> Settings </a>
+      </li>
+
+      <li class="nav-item">
+        <a [routerLink]="['/rules']" class="nav-link"> Rules </a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

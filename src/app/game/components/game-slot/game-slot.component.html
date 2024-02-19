@@ -1,0 +1,116 @@
+<div class="container" *ngIf="isStartRoundShow()">
+<!--  current player-->
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title> Are you ready? </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>The next player will be  <span class="bold">{{currentPlayer.name}}</span> from
+        team <span class="bold">{{currentPlayer.team}}</span></p>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="startRound()"
+      >Start!</button>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-container *ngIf="isStarted && !showScore">
+<!--  guess word-->
+  <div class="container">
+    <mat-card
+      class="card"
+      [ngClass]="{
+        'first-team': currentPlayer.teamIndex % 2 === 0,
+        'pulse': seconds + pulseTime > timerLimit,
+        'second-team': currentPlayer.teamIndex % 2 !== 0}">
+      <mat-card-header>
+        <mat-card-title>
+          Team <span class="bold">{{currentPlayer.team}}</span> &nbsp;
+          Player <span class="bold">{{currentPlayer.name}}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 class="word">{{getCurrentWord().value}}</h2>
+        <p>{{currentWordIndex+1}} of {{this.words.length}}</p>
+        <div class="button-container">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="skipWord()"
+            class="mat-margin"
+          >skip</button>
+          <button
+            mat-raised-button
+            color="warn"
+            (click)="nextWord()"
+            class="mat-margin"
+          >next</button>
+        </div>
+
+        <div class="timer" *ngIf="seconds">{{seconds}}</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+<!--  <div *ngIf="getCurrentWord().urls?.length" class="images">-->
+<!--    <div *ngFor="let image of getCurrentWord().urls">-->
+<!--      <img [src]="safeImageURl(image)" [alt]="getCurrentWord().value"  height="300">-->
+<!--    </div>-->
+<!--  </div>-->
+</ng-container>
+
+<div class="container" *ngIf="isRoundScoreShow()">
+<!--  score-->
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="score-container">
+        <div>
+          <div *ngIf="score.guessedWords.length">
+            <h3>Guessed Words :</h3>
+            <ng-container *ngFor="let guessedWord of score.guessedWords">
+              <h-score-word [word]="guessedWord" [guessed]="true" (moveToUnGuessed)="moveToUnGuessed($event)"></h-score-word>
+            </ng-container>
+            <br>
+          </div>
+
+          <div *ngIf="score.unGuessedWords.length">
+            <h3>Unguessed Words : </h3>
+            <ng-container *ngFor="let unguessedWord of score.unGuessedWords">
+              <h-score-word [word]="unguessedWord" (moveToGuessed)="moveToGuessed($event)"></h-score-word>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="score">
+          Score: <span class="bold">{{getPoints()}}</span> points
+        </div>
+      </div>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="nextRound()"
+      >Next round</button>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="container" *ngIf="isTotalScoreShow()">
+<!--  Total score-->
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Total score</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Team {{this.results[0].name}}: <span class="bold">{{this.results[0].score}}</span> points</p>
+      <p>Team {{this.results[1].name}}: <span class="bold">{{this.results[1].score}}</span> points</p>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+

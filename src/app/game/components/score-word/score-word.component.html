@@ -1,0 +1,26 @@
+<div class="score-word">
+  {{word.value}}
+  <button
+    mat-mini-fab
+    color="warn"
+    aria-label="-"
+    *ngIf="guessed"
+    matTooltip="Move to unguessed"
+    matTooltipPosition="right"
+    (click)="moveToUnGuessed.emit(word)"
+  >
+    <mat-icon>remove</mat-icon>
+  </button>
+
+  <button
+    mat-mini-fab
+    color="accent"
+    aria-label="plus"
+    *ngIf="!guessed"
+    matTooltip="Move to guessed"
+    matTooltipPosition="right"
+    (click)="moveToGuessed.emit(word)"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

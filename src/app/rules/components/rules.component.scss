@@ -1,0 +1,23 @@
+@import '../../shared/styles/variables';
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+h3 {
+  text-align: center;
+}
+
+ol {
+  padding-left: 10px;
+
+  li {
+    padding-bottom: 10px;
+  }
+}
+
+b {
+  color: $first-team-color;
+  font-weight: 500;
+}

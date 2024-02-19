@@ -1,0 +1,50 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>
+        Player &nbsp;
+        <span class="bold" [ngClass]="{'two': currentTeamIndex === 1 }">{{currentPlayer.name}}</span> &nbsp;
+        from team &nbsp;
+        <span class="bold" [ngClass]="{'two': currentTeamIndex === 1 }">{{currentTeamName}}</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-row">
+        <mat-form-field class="example-full-width">
+          <mat-label>New word</mat-label>
+          <input matInput placeholder="fill new word" [(ngModel)]="newWord">
+        </mat-form-field>
+      </div>
+
+      <p *ngIf="!isValid" class="not-valid-info"> We have already such word!</p>
+      <p *ngIf="replacements?.length" class="not-valid-info"> {{replacements}} </p>
+
+      <div class="form-row">
+        <button
+          mat-raised-button
+          class="btn"
+          color='accent'
+          [disabled]="!newWord?.length"
+          (click)="check()"
+        >Check</button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!isCheckedWord || !!replacements?.length || !newWord?.length || !isValid"
+          (click)="addWord()"
+        >Add word</button>
+      </div>
+
+      <p>You filled {{filledWords}}/{{gameSettings.playerWordsCount}}</p>
+      <p>Total words count: {{words?.length }}</p>
+
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="images?.length" class="images">
+    <div *ngFor="let image of images">
+      <img [src]="image.urls.small" [alt]="image.alt_description"  height="300">
+    </div>
+  </div>
+</div>

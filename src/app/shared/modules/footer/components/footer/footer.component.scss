@@ -1,0 +1,29 @@
+@import 'src/app/shared/styles/variables';
+
+td {
+  border: 1px solid #ffff00;
+}
+.footer {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.second-team {
+  color: $second-team-color;
+}
+
+.first-team {
+  color: $first-team-color;
+}
+
+@media only screen and (max-width: 480px) {
+  .footer {
+    width: 90%;
+  }
+}
