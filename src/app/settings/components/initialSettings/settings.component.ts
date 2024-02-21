@@ -7,8 +7,9 @@ import { takeUntil } from 'rxjs/operators';
 
 import { initialSettingsSelector } from '../../store/selectors';
 import { SettingsStateInterface } from '../../interfaces/settingsState.interface';
-import { settingsAction } from '../../store/actions/settingsAction';
+import { addWordAction, settingsAction } from '../../store/actions/settingsAction';
 import { LanguageCode, LanguageName } from '../../../shared/enums/laguage.enum';
+import { words } from '../../store/words.mock';
 
 @Component({
   selector: 'h-settings',
@@ -19,6 +20,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   form: FormGroup;
   isLoaded: boolean;
   selectedLanguage: any;
+  mockedData = true;
   languageCodes = Object.entries(LanguageCode).map(item => (
     { code: item[1], name: LanguageName[item[0]]}
   ));
@@ -47,8 +49,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
       language: this.selectedLanguage
     }
 
+    if (this.mockedData) {
+      words.forEach(item => (this.store.dispatch(addWordAction({ word: item }))))
+    }
+
     this.store.dispatch(settingsAction({ settings }));
     this.router.navigate(['/fill-words'])
+  }
+
+  public toggleMockedData(): void{
+    this.mockedData = !this.mockedData;
   }
 
   private initializeListeners(): void {

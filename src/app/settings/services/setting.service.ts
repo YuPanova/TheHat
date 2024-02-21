@@ -14,30 +14,6 @@ export class SettingsService {
   public images: Subject<ImageResponseInterface[]> = new Subject();
   private webWorker: Worker;
 
-  public getRandomWord(): any {
-    const apiUrl = 'https://random-words5.p.rapidapi.com/getRandom';
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': 'a2ef27cd36msh2388f1ba5a7134ep1fa1e7jsn5851e0c1bfdf',
-        'X-RapidAPI-Host': 'random-words5.p.rapidapi.com'
-      }
-    };
-
-    return from(fetch(apiUrl, options)).pipe(
-      switchMap(response => {
-        if (!response.ok) {
-          return throwError('Network response was not ok');
-        }
-        return from(response.json());
-      }),
-      catchError(error => {
-        return throwError(`There was a problem with the fetch operation: ${error.message}`);
-      })
-    );
-
-  }
-
   public grammarCheck(word: string, languageCode = LanguageCode.EN): Observable<GrammarCheckResponseInterface> {
     const apiUrl = 'https://api.languagetoolplus.com/v2/check';
 

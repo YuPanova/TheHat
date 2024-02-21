@@ -111,12 +111,6 @@ export class FillWordComponent implements OnInit, OnDestroy {
           this.replacements = null;
         }
       );
-
-      this.settingsService.getRandomWord()
-        .pipe(takeUntil(this.unsubscriber))
-        .subscribe( word => {
-          console.log('random word - ', word)
-        })
     }
   }
 

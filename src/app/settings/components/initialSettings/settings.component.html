@@ -1,33 +1,33 @@
 <div class="settings-page" *ngIf="isLoaded">
-  <form [formGroup]="form" class="example-form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Count of players</mat-label>
       <input matInput type="number" placeholder="8" min="4" formControlName="playersCount">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Count of words per player</mat-label>
       <input matInput type="number" placeholder="8" min="2" formControlName="playerWordsCount">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Name of the first group</mat-label>
       <input matInput formControlName="firstTeamName">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Player's names of the first group</mat-label>
       <textarea matInput formControlName="firstTeamPlayers">
       </textarea>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Name of the second group</mat-label>
       <input matInput formControlName="secondTeamName">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Player's names of the second group</mat-label>
       <textarea matInput formControlName="secondTeamPlayers">
       </textarea>
@@ -40,7 +40,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Round time</mat-label>
       <input
         matInput
@@ -52,6 +52,14 @@
         formControlName="timeOfRound"
       >
     </mat-form-field>
+
+    <div class="form-field">
+      <mat-checkbox
+        [checked]="mockedData"
+        (change)="toggleMockedData()">
+        Mock words
+      </mat-checkbox>
+    </div>
 
     <div class="button-container">
       <button

@@ -21,3 +21,11 @@ mat-card-content, mat-card-header,
   padding: 10px;
 }
 
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #cc65f7;
+}
+
+mat-label {
+  color: $first-team-color;
+}
+

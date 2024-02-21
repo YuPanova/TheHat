@@ -5,8 +5,6 @@ import { addWordAction, saveResultsAction, settingsAction, shuffleWordsAction } 
 import { InitialStateInterface, ResultsInterface } from 'src/app/settings/interfaces/settingsState.interface';
 import { mergeArrays, shuffleArray } from '../../shared/utils/utils';
 import { LanguageCode, LanguageName } from '../../shared/enums/laguage.enum';
-import { words } from './words.mock';
-
 
 const initialState: InitialStateInterface = {
   initialSettings: {
@@ -26,7 +24,7 @@ const initialState: InitialStateInterface = {
       name: LanguageName.EN
     },
   },
-  words: words,
+  words: [],
   game: {
     currentPlayer: null,
     results: [
