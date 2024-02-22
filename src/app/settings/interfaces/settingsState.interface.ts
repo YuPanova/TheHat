@@ -23,7 +23,7 @@ export interface InitialStateInterface {
 
 export interface WordInterface {
   value: string,
-  urls: string[]
+  urls?: string[]
 }
 
 export interface PlayersQueueInterface {

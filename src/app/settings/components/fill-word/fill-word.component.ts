@@ -23,6 +23,7 @@ export class FillWordComponent implements OnInit, OnDestroy {
   public words: WordInterface[];
   public filledWords: number;
   public currentTeamIndex = 0;
+  public totalWordsCount;
   public gameSettings: SettingsStateInterface;
   public currentPlayer: PlayersQueueInterface;
   public currentTeamName: string;
@@ -44,7 +45,7 @@ export class FillWordComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('document:keydown.enter', ['$event']) onEnterKey(event: KeyboardEvent): void {
+  @HostListener('document:keydown.enter', ['$event']) onEnterKey(): void {
     this.isCheckedWord ? this.addWord() : this.check();
   }
 
@@ -69,7 +70,8 @@ export class FillWordComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(() => {
-        if (this.words.length === this.gameSettings.playerWordsCount * this.gameSettings.playersCount){
+        this.totalWordsCount = this.gameSettings.playerWordsCount * this.gameSettings.playersCount;
+        if (this.words.length >= this.totalWordsCount){
           this.router.navigate(['/game']);
         } else {
           const currentPlayerIndex = Math.ceil((this.words.length + 1) / this.gameSettings.playerWordsCount) - 1;

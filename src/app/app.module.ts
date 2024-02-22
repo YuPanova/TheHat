@@ -39,7 +39,6 @@ import { HomeComponent } from './shared/components/home/home.component';
     FooterModule,
     RulesModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {
