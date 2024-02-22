@@ -29,7 +29,6 @@ export interface WordInterface {
 export interface PlayersQueueInterface {
   name: string,
   teamIndex: number,
-  team?: string,
 }
 
 export interface ResultsInterface {

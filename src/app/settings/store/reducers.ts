@@ -16,8 +16,8 @@ const initialState: InitialStateInterface = {
     secondTeamPlayers: ['three', 'four'],
     timeOfRound: 10,
     playersQueue: [
-      {name: 'one', teamIndex: 0, team:'Cats'},{name: 'three', teamIndex: 1, team:'Dogs'},
-      {name: 'two', teamIndex: 0, team:'Cats'},{name: 'four', teamIndex: 1, team:'Dogs'}
+      {name: 'one', teamIndex: 0},{name: 'three', teamIndex: 1},
+      {name: 'two', teamIndex: 0},{name: 'four', teamIndex: 1}
     ],
     language: {
       code: LanguageCode.EN,

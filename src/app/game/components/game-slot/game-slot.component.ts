@@ -124,6 +124,10 @@ export class GameSlotComponent implements OnInit, OnDestroy {
     this.unsubscriber.complete();
   }
 
+  public getCurrentTeamName(): string {
+    return this.currentPlayer.teamIndex ? this.gameSettings.secondTeamName : this.gameSettings.firstTeamName;
+  }
+
   public nextPlayer(): void {
     if (this.currentPlayerIndex === this.gameSettings.playersCount-1){
       this.currentPlayerIndex = 0;

@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-content>
       <p>The next player will be  <span class="bold">{{currentPlayer.name}}</span> from
-        team <span class="bold">{{currentPlayer.team}}</span></p>
+        team <span class="bold">{{getCurrentTeamName()}}</span></p>
       <button
         mat-raised-button
         color="accent"
@@ -27,7 +27,7 @@
         'second-team': currentPlayer.teamIndex % 2 !== 0}">
       <mat-card-header>
         <mat-card-title>
-          Team <span class="bold">{{currentPlayer.team}}</span> &nbsp;
+          Team <span class="bold">{{getCurrentTeamName()}}</span> &nbsp;
           Player <span class="bold">{{currentPlayer.name}}</span>
         </mat-card-title>
       </mat-card-header>
