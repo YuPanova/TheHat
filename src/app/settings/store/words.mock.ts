@@ -87,5 +87,7 @@ export const words = [{
       "https://images.unsplash.com/photo-1599584003693-b8c66ab24e24?ixid=M3w1NTM5MTR8MHwxfHNlYXJjaHw5fHxzaXh8ZW58MHx8fHwxNzA1NTg0NjM4fDA&ixlib=rb-4.0.3",
       "https://images.unsplash.com/photo-1551431009-a802eeec77b1?ixid=M3w1NTM5MTR8MHwxfHNlYXJjaHwxMHx8c2l4fGVufDB8fHx8MTcwNTU4NDYzOHww&ixlib=rb-4.0.3"
     ]
-  }
+  },
+  {value: 'seven'},
+  {value: 'eight'}
 ]

@@ -33,7 +33,7 @@
       </mat-card-header>
       <mat-card-content>
         <h2 class="word">{{getCurrentWord().value}}</h2>
-        <p>{{currentWordIndex+1}} of {{this.words.length}}</p>
+        <p>{{currentWordIndex}} of {{totalWordsCount}}</p>
         <div class="button-container">
           <button
             mat-raised-button
@@ -105,9 +105,14 @@
       <mat-card-title>Total score</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>Team {{this.results[0].name}}: <span class="bold">{{this.results[0].score}}</span> points</p>
-      <p>Team {{this.results[1].name}}: <span class="bold">{{this.results[1].score}}</span> points</p>
+      <p>Team {{results[0].name}}: <span class="bold">{{results[0].score}}</span> points</p>
+      <p>Team {{results[1].name}}: <span class="bold">{{results[1].score}}</span> points</p>
 
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="newCycle()"
+      >New Cycle</button>
     </mat-card-content>
   </mat-card>
 

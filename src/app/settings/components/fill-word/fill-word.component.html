@@ -3,7 +3,7 @@
     <mat-card-header>
       <mat-card-title>
         Player &nbsp;
-        <span class="bold" [ngClass]="{'two': currentTeamIndex === 1 }">{{currentPlayer.name}}</span> &nbsp;
+        <span class="bold" [ngClass]="{'two': currentTeamIndex === 1 }">{{currentPlayer?.name}}</span> &nbsp;
         from team &nbsp;
         <span class="bold" [ngClass]="{'two': currentTeamIndex === 1 }">{{currentTeamName}}</span>
       </mat-card-title>

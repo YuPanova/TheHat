@@ -14,6 +14,7 @@ import {
   saveResultsAction,
   shuffleWordsAction
 } from '../../../settings/store/actions/settingsAction';
+import { shuffleArray } from '../../../shared/utils/utils';
 
 @Component({
   selector: 'h-game-slot',
@@ -23,13 +24,18 @@ import {
 export class GameSlotComponent implements OnInit, OnDestroy {
 
   public words: WordInterface[];
+  public initialWords: WordInterface[];
+  public totalWordsCount: number;
   public gameSettings: SettingsStateInterface;
   public currentPlayer: PlayersQueueInterface;
   public currentPlayerIndex = 0;
-  public currentWordIndex = 0;
+  public currentWordIndex = 1;
+
+  //flags
   public isStarted = false;
   public showScore = false;
   public showTotalScore = false;
+
   public timeEnded = false;
   private timer;
   public score: {
@@ -52,11 +58,11 @@ export class GameSlotComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store, private sanitizer: DomSanitizer ) { }
 
-  @HostListener('document:keydown.enter', ['$event']) onEnterKey(event: KeyboardEvent): void {
+  @HostListener('document:keydown.enter', ['$event']) onEnterKey(): void {
     this.nextWord();
   }
 
-  @HostListener('document:keydown.space', ['$event']) onSpaceKey(event: KeyboardEvent): void {
+  @HostListener('document:keydown.space', ['$event']) onSpaceKey(): void {
     this.skipWord();
   }
 
@@ -74,6 +80,15 @@ export class GameSlotComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  private audioInit() {
+    this.audioSkip = new Audio();
+    this.audioEnd = new Audio();
+    this.audioNext = new Audio();
+    this.audioSkip.src = 'assets/sounds/failure.mp3';
+    this.audioNext.src = 'assets/sounds/success.mp3';
+    this.audioEnd.src = 'assets/sounds/end.mp3';
+  }
+
   public ngOnInit(): void {
     this.store.dispatch(shuffleWordsAction());
 
@@ -86,13 +101,15 @@ export class GameSlotComponent implements OnInit, OnDestroy {
       this.store.pipe(select(initialSettingsSelector))
     ])
       .pipe(
-        takeUntil(this.unsubscriber),
         map(([words, gameSettings]) => {
           this.words = words;
+          this.initialWords = words;
+          this.totalWordsCount = words.length;
           this.gameSettings = gameSettings;
           this.timerLimit = this.gameSettings.timeOfRound;
           this.pulseTime = Math.ceil(this.gameSettings.timeOfRound / 100 * 15);
-        })
+        }),
+        takeUntil(this.unsubscriber),
       )
       .subscribe(() =>{
         this.currentPlayer = this.gameSettings.playersQueue[0];
@@ -100,15 +117,6 @@ export class GameSlotComponent implements OnInit, OnDestroy {
 
     this.audioInit();
 
-  }
-
-  private audioInit() {
-    this.audioSkip = new Audio();
-    this.audioEnd = new Audio();
-    this.audioNext = new Audio();
-    this.audioSkip.src = 'assets/sounds/failure.mp3';
-    this.audioNext.src = 'assets/sounds/success.mp3';
-    this.audioEnd.src = 'assets/sounds/end.mp3';
   }
 
   public ngOnDestroy(): void {
@@ -128,14 +136,15 @@ export class GameSlotComponent implements OnInit, OnDestroy {
 
   public nextRound(): void {
     this.saveTeamScore( this.currentPlayer.teamIndex, this.score.guessedWords.length);
-    if (this.currentWordIndex > this.words.length-1) {
-      this.showTotalScore = true;
-    }
+    this.words = shuffleArray([...this.words, ...this.score.unGuessedWords]);
     this.nextPlayer();
     this.showScore = false;
     this.isStarted = false;
     this.score.guessedWords = [];
     this.score.unGuessedWords = [];
+    if (!this.words.length) {
+      this.showTotalScore = true;
+    }
   }
 
   public nextWord(): void {
@@ -151,34 +160,42 @@ export class GameSlotComponent implements OnInit, OnDestroy {
   }
 
   public changeWord(): void {
-    this.currentWordIndex++;
-    if (this.timeEnded || this.currentWordIndex === this.words.length){
+    this.words = this.words.slice(1);
+    if (this.timeEnded || !this.words.length){
       this.showScore = true;
+      clearInterval(this.timer);
     }
   }
 
   public getCurrentWord(): WordInterface {
-    return this.words[this.currentWordIndex];
+    this.currentWordIndex = this.totalWordsCount - this.words.length +1;
+    return this.words[0];
   }
 
-  public startRound(): void{
+  public startRound(): void {
     this.showScore = false;
     this.isStarted = true;
     this.timeEnded = false;
     this.startTimer();
   }
 
+  public newCycle(): void {
+    this.words = this.initialWords;
+    this.currentPlayer = this.gameSettings.playersQueue[0];
+    this.showTotalScore = false;
+  }
+
   public isStartRoundShow(): boolean{
     return !this.isStarted
           && !this.showScore
-          && this.currentWordIndex < this.words.length
+          && !!this.words.length
   }
 
-  public isTotalScoreShow(): boolean{
+  public isTotalScoreShow(): boolean {
     return this.showTotalScore
   }
 
-  public isRoundScoreShow(): boolean{
+  public isRoundScoreShow(): boolean {
     return this.showScore
   }
 
