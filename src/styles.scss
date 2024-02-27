@@ -5,10 +5,10 @@ html, body {
 }
 
 body {
-  margin: 0; font-family:
-  Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: $bg-color;
-  color: #fff;
+  color: $white;
 }
 
 mat-card-content, mat-card-header,
@@ -22,7 +22,7 @@ mat-card-content, mat-card-header,
 }
 
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: #cc65f7;
+  color: $violet;
 }
 
 mat-label {

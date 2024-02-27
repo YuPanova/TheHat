@@ -3,6 +3,7 @@ import { combineLatest, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { map, takeUntil } from 'rxjs/operators';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { shuffle } from 'lodash';
 
 import { gameSelector, initialSettingsSelector, wordsSettingsSelector } from '../../../settings/store/selectors';
 import {
@@ -14,7 +15,6 @@ import {
   saveResultsAction,
   shuffleWordsAction
 } from '../../../settings/store/actions/settingsAction';
-import { shuffleArray } from '../../../shared/utils/utils';
 
 @Component({
   selector: 'h-game-slot',
@@ -140,7 +140,7 @@ export class GameSlotComponent implements OnInit, OnDestroy {
 
   public nextRound(): void {
     this.saveTeamScore( this.currentPlayer.teamIndex, this.score.guessedWords.length);
-    this.words = shuffleArray([...this.words, ...this.score.unGuessedWords]);
+    this.words = shuffle([...this.words, ...this.score.unGuessedWords]);
     this.nextPlayer();
     this.showScore = false;
     this.isStarted = false;

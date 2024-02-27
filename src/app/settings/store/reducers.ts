@@ -1,9 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, shuffle } from 'lodash';
 
 import { addWordAction, saveResultsAction, settingsAction, shuffleWordsAction } from './actions/settingsAction';
 import { InitialStateInterface, ResultsInterface } from 'src/app/settings/interfaces/settingsState.interface';
-import { mergeArrays, shuffleArray } from '../../shared/utils/utils';
+import { mergeArrays } from '../../shared/utils/utils';
 import { LanguageCode, LanguageName } from '../../shared/enums/laguage.enum';
 
 const initialState: InitialStateInterface = {
@@ -84,7 +84,7 @@ const settingsReducer = createReducer(
     (state): InitialStateInterface => {
       return {
         ...state,
-        words: shuffleArray(state.words)
+        words: shuffle(state.words)
       }
     }
   ),

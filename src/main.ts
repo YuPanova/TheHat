@@ -19,6 +19,7 @@ if (environment.production) {
   enableProdMode();
 }
 
+// temporarily switched off serviceWorker
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('/service-worker.js')
 //     .then(() => {

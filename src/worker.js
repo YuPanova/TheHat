@@ -18,19 +18,18 @@ self.addEventListener('message', function(e) {
       return response.json();
     })
     .then(data => {
-      //cashing
-      data.results.forEach(item => {
-        fetch(item.urls.small, { headers:{responseType: 'arraybuffer' }})
-          .then(response => {
-            const blob = new Blob([response], { type: 'image/jpeg' });
-            URL.createObjectURL(blob)
-          })
-          .catch(error => (console.error('Fetch error:', error)));
-      })
-
+      data.results.forEach(item => (cashImage(item.urls.small)));
       postMessage(data.results);
-
     })
     .catch(error => ( console.error('Fetch error:', error)))
-})
+});
+
+function cashImage(url){
+  fetch(url, { headers:{responseType: 'arraybuffer' }})
+    .then(response => {
+      const blob = new Blob([response], { type: 'image/jpeg' });
+      URL.createObjectURL(blob);
+    })
+    .catch(error => (console.error('Fetch error:', error)));
+}
 

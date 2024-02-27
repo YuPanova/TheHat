@@ -29,7 +29,9 @@ export class FillWordComponent implements OnInit, OnDestroy {
   public currentTeamName: string;
   public replacements: string;
   public images: ImageResponseInterface[] = [];
+
   private readonly unsubscriber = new Subject();
+  private isImageForWord = false;
 
   constructor(
     private store: Store,
@@ -50,8 +52,10 @@ export class FillWordComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    // this.settingsService.createWebWorker();
-    // this.settingsService.cacheMockedImages();
+    if (this.isImageForWord) {
+      this.settingsService.createWebWorker();
+      this.settingsService.cacheMockedImages();
+    }
 
     this.settingsService.images.pipe(takeUntil(this.unsubscriber))
       .subscribe(res => {
@@ -87,13 +91,17 @@ export class FillWordComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.unsubscriber.next();
     this.unsubscriber.complete();
-    // this.settingsService.terminateWebWorker();
+    if (this.isImageForWord) {
+      this.settingsService.terminateWebWorker();
+    }
   }
 
   public check(): void {
     if (this.isValid && this.newWord.length){
 
-      // this.settingsService.onWebWorker(this.newWord);
+      if (this.isImageForWord) {
+        this.settingsService.onWebWorker(this.newWord);
+      }
 
       this.settingsService.grammarCheck(this.newWord, this.gameSettings.language.code)
         .pipe(takeUntil(this.unsubscriber))
